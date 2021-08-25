@@ -1,0 +1,1 @@
+create unique index IDX_CARRIER_CARRIER_UNIQ_NAME on CARRIER_CARRIER (NAME);

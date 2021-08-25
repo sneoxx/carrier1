@@ -4,37 +4,22 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Table(name = "CARRIER_CARRIER")
-@Entity(name = "carrier_Carrier")
+@MappedSuperclass
 @NamePattern("%s|name")
-public class Carrier extends StandardEntity {
-    private static final long serialVersionUID = -5737611676534904189L;
+public class Goods extends StandardEntity {
+    private static final long serialVersionUID = 1182395233897988257L;
 
     @NotNull
-    @Column(name = "NAME", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @NotNull
     @Column(name = "COST", nullable = false)
     private BigDecimal cost;
-
-    @Column(name = "EMAIL")
-    @Email(message = "{msg://carrier_Carrier.email.validation.Email}")
-    private String email;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public BigDecimal getCost() {
         return cost;
