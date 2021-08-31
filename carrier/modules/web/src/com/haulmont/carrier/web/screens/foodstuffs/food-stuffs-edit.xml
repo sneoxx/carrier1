@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://foodStuffsEdit.caption"
+        focusComponent="form"
+        messagesPack="com.haulmont.carrier.web.screens.foodstuffs">
+    <data>
+        <instance id="foodStuffsDc"
+                  class="com.haulmont.carrier.entity.FoodStuffs">
+            <view extends="_local"/>
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="foodStuffsDc">
+            <column width="350px">
+                <textField id="nameField" property="name"/>
+                <textField id="costField" property="cost"/>
+                <dateField id="expirationDateField" property="expirationDate"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

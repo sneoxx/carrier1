@@ -1,0 +1,2 @@
+alter table CARRIER_DELIVERY_GOODS_LINK add constraint FK_DELGOO_ON_DELIVERY foreign key (DELIVERY_ID) references CARRIER_DELIVERY(ID);
+alter table CARRIER_DELIVERY_GOODS_LINK add constraint FK_DELGOO_ON_GOODS foreign key (GOODS_ID) references CARRIER_GOODS(ID);

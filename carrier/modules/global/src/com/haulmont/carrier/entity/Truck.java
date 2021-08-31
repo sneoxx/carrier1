@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Table(name = "CARRIER_TRUCK")
 @Entity(name = "carrier_Truck")
@@ -27,6 +28,19 @@ public class Truck extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRUCK_TYPE_ID")
     private TruckType truckType;
+    @JoinTable(name = "CARRIER_DELIVERY_TRUCK_LINK",
+            joinColumns = @JoinColumn(name = "TRUCK_ID"),
+            inverseJoinColumns = @JoinColumn(name = "DELIVERY_ID"))
+    @ManyToMany
+    private List<Delivery> deliveries;
+
+    public List<Delivery> getDeliveries() {
+        return deliveries;
+    }
+
+    public void setDeliveries(List<Delivery> deliveries) {
+        this.deliveries = deliveries;
+    }
 
     public TruckType getTruckType() {
         return truckType;

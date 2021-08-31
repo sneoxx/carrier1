@@ -1,0 +1,9 @@
+alter table CARRIER_FOOD_STUFFS drop column VERSION__U85707 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column CREATE_TS__U58520 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column CREATED_BY__U46201 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column UPDATE_TS__U44019 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column UPDATED_BY__U15574 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column DELETE_TS__U78118 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column DELETED_BY__U45523 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column NAME__U97379 cascade ;
+alter table CARRIER_FOOD_STUFFS drop column COST__U98836 cascade ;

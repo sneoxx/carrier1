@@ -1,0 +1,9 @@
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column VERSION__U78641 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column CREATE_TS__U17138 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column CREATED_BY__U02178 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column UPDATE_TS__U74141 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column UPDATED_BY__U08748 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column DELETE_TS__U94484 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column DELETED_BY__U64780 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column NAME__U99206 cascade ;
+alter table CARRIER_INDUSTRIAL_PRODUCTS drop column COST__U49539 cascade ;

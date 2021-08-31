@@ -1,0 +1,2 @@
+alter table CARRIER_DELIVERY_TRUCK_LINK add constraint FK_DELTRU_ON_DELIVERY foreign key (DELIVERY_ID) references CARRIER_DELIVERY(ID);
+alter table CARRIER_DELIVERY_TRUCK_LINK add constraint FK_DELTRU_ON_TRUCK foreign key (TRUCK_ID) references CARRIER_TRUCK(ID);

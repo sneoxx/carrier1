@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd">
+<!--        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"-->
+<!--        caption="msg://goodsBrowse.caption"-->
+<!--        focusComponent="foodStuffsTab"-->
+<!--        messagesPack="com.haulmont.carrier.web.screens.goods">-->
+    <data readOnly="true">
+        <collection id="goodsesDc"
+                    class="com.haulmont.carrier.entity.Goods">
+            <view extends="_local"/>
+            <loader id="goodsesDl">
+                <query>
+                    <![CDATA[select e from carrier_Goods e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="foodStuffsesDc"
+                    class="com.haulmont.carrier.entity.FoodStuffs">
+            <view extends="_local"/>
+            <loader id="foodStuffsesDl">
+                <query>
+                    <![CDATA[select e from carrier_FoodStuffs e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="industrialProductsesDc"
+                    class="com.haulmont.carrier.entity.IndustrialProducts">
+            <view extends="_local"/>
+            <loader id="industrialProductsesDl">
+                <query>
+                    <![CDATA[select e from carrier_IndustrialProducts e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+
+        <tabSheet id="tabSheetGoods">
+<!--            <groupTable id="tabSheetGoodsTable"-->
+<!--                        width="100%">-->
+            <tab id="foodStuffsTab" caption="FoodStuffs" margin="true" spacing="true">
+                <groupTable id="foodStuffsesTable"
+                            width="100%"
+                            dataContainer="foodStuffsesDc">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn" action="foodStuffsesTable.create"/>
+                        <button id="editBtn" action="foodStuffsesTable.edit"/>
+                        <button id="removeBtn" action="foodStuffsesTable.remove"/>
+                    </buttonsPanel>
+                    <columns>
+                        <column id="name"/>
+                        <column id="cost"/>
+                        <column id="expirationDate"/>
+                    </columns>
+                </groupTable>
+            </tab>
+            <tab id="industrialProductsTab" caption="IndustrialProducts" margin="true" spacing="true">
+                <groupTable id="industrialProductsesTable"
+                            width="100%"
+                            dataContainer="industrialProductsesDc">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanelIndustrialProductses"
+                                  alwaysVisible="true">
+                        <button id="createBtnIndustrialProductses" action="industrialProductsesTable.create"/>
+                        <button id="editBtnIndustrialProductses" action="industrialProductsesTable.edit"/>
+                        <button id="removeBtnIndustrialProductses" action="industrialProductsesTable.remove"/>
+                    </buttonsPanel>
+                    <columns>
+                        <column id="name"/>
+                        <column id="cost"/>
+                        <column id="weight"/>
+                    </columns>
+                </groupTable>
+            </tab>
+<!--            </groupTable>-->
+        </tabSheet>
+
+    </layout>
+</window>
