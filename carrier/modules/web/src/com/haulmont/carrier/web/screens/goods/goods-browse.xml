@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd">
-<!--        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"-->
-<!--        caption="msg://goodsBrowse.caption"-->
-<!--        focusComponent="foodStuffsTab"-->
-<!--        messagesPack="com.haulmont.carrier.web.screens.goods">-->
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+    caption="msg://goodsBrowse.caption"
+    focusComponent="tabSheetGoods"
+    messagesPack="com.haulmont.carrier.web.screens.goods">
     <data readOnly="true">
         <collection id="goodsesDc"
                     class="com.haulmont.carrier.entity.Goods">
@@ -36,8 +35,6 @@
     <layout>
 
         <tabSheet id="tabSheetGoods">
-<!--            <groupTable id="tabSheetGoodsTable"-->
-<!--                        width="100%">-->
             <tab id="foodStuffsTab" caption="FoodStuffs" margin="true" spacing="true">
                 <groupTable id="foodStuffsesTable"
                             width="100%"
@@ -84,8 +81,6 @@
                     </columns>
                 </groupTable>
             </tab>
-<!--            </groupTable>-->
         </tabSheet>
-
     </layout>
 </window>

@@ -2,12 +2,15 @@ package com.haulmont.carrier.entity;
 
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.EmbeddedParameters;
+import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+@PublishEntityChangedEvents
 @Table(name = "CARRIER_DELIVERY")
 @Entity(name = "carrier_Delivery")
 public class Delivery extends StandardEntity {
@@ -116,5 +119,10 @@ public class Delivery extends StandardEntity {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        setStatus(StatusDelivery.NEW);
     }
 }

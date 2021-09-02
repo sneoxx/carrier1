@@ -13,13 +13,17 @@
             </view>
             <loader id="trucksDl">
                 <query>
-                    <![CDATA[select e from carrier_Truck e]]>
+                    <![CDATA[select e from carrier_Truck e where e.carrier = :carrier]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
+    <facets>
+        <dataLoadCoordinator auto="false"/>
+    </facets>
+
     <layout expand="trucksTable"
             spacing="true">
         <filter id="filter"

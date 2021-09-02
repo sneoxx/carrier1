@@ -11,7 +11,9 @@
                 <property name="truck" view="_minimal">
                     <property name="truckType" view="_minimal"/>
                 </property>
-                <property name="goods" view="_minimal"/>
+                <property name="goods" view="_minimal">
+                    <property name="cost"/>
+                </property>
                 <property name="address" view="_minimal">
                     <property name="city"/>
                     <property name="street"/>
@@ -22,24 +24,9 @@
             <collection id="truckDc" property="truck"/>
             <collection id="goodsDc" property="goods"/>
         </instance>
-<!--        <collection id="trucksDc" class="com.haulmont.carrier.entity.Truck">-->
-<!--            <view extends="_local">-->
-<!--                <property name="carrier" view="_minimal"/>-->
-<!--                <property name="truckType" view="_minimal"/>-->
-<!--            </view>-->
-<!--            <loader id="trucksDl">-->
-<!--                <query>-->
-<!--                    <![CDATA[select e from carrier_Truck e where e.carrier =:container_trucksDc]]>-->
-<!--                </query>-->
-<!--            </loader>-->
-<!--        </collection>-->
-
-
     </data>
-
     <dialogMode height="600"
                 width="800"/>
-    <facets/>
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="deliveryDc">
             <column width="350px">
@@ -59,11 +46,8 @@
                 <textField id="addressCityField" property="address.city"/>
                 <textField id="addressStreetField" property="address.street"/>
                 <textField id="addressHouseField" property="address.house"/>
-                <textField id="truckTypeField" property="address.house"/>
-                <label dataContainer="truckDc" property="truckType"/>
             </column>
         </form>
-
         <groupBox id="truckBox" caption="msg://com.haulmont.carrier.entity/Delivery.truck">
             <table id="truckTable" dataContainer="truckDc" width="100%" height="200px">
                 <actions>
@@ -88,6 +72,7 @@
                 </actions>
                 <columns>
                     <column id="name"/>
+                    <column id="cost"/>
                 </columns>
                 <buttonsPanel>
                     <button action="goodsTable.add"/>
@@ -95,11 +80,11 @@
                 </buttonsPanel>
             </table>
         </groupBox>
+        <label value="Cost Of All Goods:" />
+        <label id="costOfAllGoods"/>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
         </hbox>
-
     </layout>
-
 </window>

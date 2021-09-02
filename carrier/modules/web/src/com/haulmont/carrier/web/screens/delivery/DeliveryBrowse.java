@@ -8,4 +8,5 @@ import com.haulmont.carrier.entity.Delivery;
 @LookupComponent("deliveriesTable")
 @LoadDataBeforeShow
 public class DeliveryBrowse extends StandardLookup<Delivery> {
+
 }

@@ -9,7 +9,6 @@
             <view extends="_local"/>
             <loader/>
         </instance>
-
         <collection id="industrialProductsesDc"
                     class="com.haulmont.carrier.entity.IndustrialProducts">
             <view extends="_local"/>
@@ -18,7 +17,6 @@
                     <![CDATA[select e from carrier_IndustrialProducts e]]>
                 </query>
             </loader>
-
         </collection>
         <collection id="deliveriesDc" class="com.haulmont.carrier.entity.Delivery">
             <view extends="_minimal">
@@ -33,13 +31,11 @@
             </view>
             <loader id="deliveriesDl">
                 <query>
-                    <![CDATA[select e from carrier_Delivery e where e.carrier = :container_carrierDc and e.status like 'Completed']]>
+                    <![CDATA[select e from carrier_Delivery e where e.carrier = :container_carrierDc and e.status = 30]]>
                 </query>
             </loader>
         </collection>
     </data>
-<!--    <dialogMode height="600"-->
-<!--                width="800"/>-->
     <facets>
         <dataLoadCoordinator auto="true"/>
     </facets>
@@ -57,28 +53,6 @@
                             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
                             <button id="closeBtn" action="windowClose"/>
                         </hbox>
-
-<!--                <groupTable id="foodStuffsesTable"-->
-<!--                            width="100%"-->
-<!--                            dataContainer="foodStuffsesDc">-->
-<!--                    <actions>-->
-<!--                        <action id="create" type="create"/>-->
-<!--                        <action id="edit" type="edit"/>-->
-<!--                        <action id="remove" type="remove"/>-->
-<!--                    </actions>-->
-<!--                    <rowsCount/>-->
-<!--                    <buttonsPanel id="buttonsPanel"-->
-<!--                                  alwaysVisible="true">-->
-<!--                        <button id="createBtn" action="foodStuffsesTable.create"/>-->
-<!--                        <button id="editBtn" action="foodStuffsesTable.edit"/>-->
-<!--                        <button id="removeBtn" action="foodStuffsesTable.remove"/>-->
-<!--                    </buttonsPanel>-->
-<!--                    <columns>-->
-<!--                        <column id="name"/>-->
-<!--                        <column id="cost"/>-->
-<!--                        <column id="expirationDate"/>-->
-<!--                    </columns>-->
-<!--                </groupTable>-->
             </tab>
             <tab id="completedDeliveryTab" caption="Completed Deliveries" margin="true" spacing="true">
 
@@ -98,17 +72,4 @@
         </tabSheet>
 
     </layout>
-<!--    <layout expand="editActions" spacing="true">-->
-<!--        <form id="form" dataContainer="carrierDc">-->
-<!--            <column width="350px">-->
-<!--                <textField id="nameField" property="name"/>-->
-<!--                <textField id="costField" property="cost"/>-->
-<!--                <textField id="emailField" property="email"/>-->
-<!--            </column>-->
-<!--        </form>-->
-<!--        <hbox id="editActions" spacing="true">-->
-<!--            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>-->
-<!--            <button id="closeBtn" action="windowClose"/>-->
-<!--        </hbox>-->
-<!--    </layout>-->
 </window>
