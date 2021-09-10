@@ -22,4 +22,11 @@ public class FoodStuffs extends Goods {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
+
+    @Override
+    public String toString() {
+        return "FoodStuffs{" +
+                "expirationDate=" + expirationDate +
+                '}';
+    }
 }

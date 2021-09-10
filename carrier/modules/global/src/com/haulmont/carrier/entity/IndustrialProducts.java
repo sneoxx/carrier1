@@ -22,4 +22,11 @@ public class IndustrialProducts extends Goods {
     public void setWeight(Double weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "IndustrialProducts{" +
+                "weight=" + weight +
+                '}';
+    }
 }

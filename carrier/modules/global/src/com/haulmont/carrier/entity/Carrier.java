@@ -3,12 +3,12 @@ package com.haulmont.carrier.entity;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "CARRIER_CARRIER")
 @Entity(name = "carrier_Carrier")
@@ -27,6 +27,9 @@ public class Carrier extends StandardEntity {
     @Column(name = "EMAIL")
     @Email(message = "{msg://carrier_Carrier.email.validation.Email}")
     private String email;
+
+    @OneToMany(mappedBy = "carrier")
+    private List<Delivery> deliveries = new ArrayList<>();
 
     public String getEmail() {
         return email;
@@ -50,5 +53,13 @@ public class Carrier extends StandardEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Delivery> getDeliveries() {
+        return deliveries;
+    }
+
+    public void setDeliveries(List<Delivery> deliveries) {
+        this.deliveries = deliveries;
     }
 }

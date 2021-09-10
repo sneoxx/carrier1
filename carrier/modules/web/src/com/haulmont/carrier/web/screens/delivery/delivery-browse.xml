@@ -40,6 +40,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+
             </actions>
             <columns>
                 <column id="number"/>
@@ -58,6 +59,8 @@
                 <button id="createBtn" action="deliveriesTable.create"/>
                 <button id="editBtn" action="deliveriesTable.edit"/>
                 <button id="removeBtn" action="deliveriesTable.remove"/>
+<!--                <button id="buttonCostOfDelivery" caption="msg://getCostOfDelivery"/>-->
+
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

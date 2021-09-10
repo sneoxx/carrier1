@@ -30,7 +30,6 @@
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="deliveryDc">
             <column width="350px">
-
                 <label dataContainer="truckDc" property="truckType"/>
 
                 <textField id="numberField" property="number"/>
@@ -80,8 +79,15 @@
                 </buttonsPanel>
             </table>
         </groupBox>
-        <label value="Cost Of All Goods:" />
-        <label id="costOfAllGoods"/>
+        <grid spacing="true">
+            <columns count="2"/>
+            <rows>
+                <row>
+                    <label value="Cost Of All Goods:"/>
+                    <label id="costOfAllGoods"/>
+                </row>
+            </rows>
+        </grid>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

@@ -1,6 +1,8 @@
 package com.haulmont.carrier.web.screens.delivery;
 
 import com.haulmont.carrier.entity.Goods;
+import com.haulmont.carrier.service.DeliveryService;
+import com.haulmont.carrier.service.GoodsService;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.Label;
@@ -33,6 +35,30 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
 
     @Inject
     private Dialogs dialogs;
+
+    @Inject
+    private DeliveryService deliveryService;
+
+    @Inject
+    private GoodsService goodsService;
+
+
+    @Subscribe
+    public void onAfterShow(AfterShowEvent event) {
+        List<Goods> changes = getEditedEntity().getGoods();
+        Delivery delivery = getEditedEntity();
+        BigDecimal costAllGoods = new BigDecimal("0.0");
+        for (Goods goods : changes) {
+            costAllGoods = costAllGoods.add(goods.getCost());
+
+            deliveryService.getCostOfDelivery(delivery);
+            deliveryService.checkExpirationDate(delivery);
+//            deliveryService.getDeliveryInTheLast7Days(delivery);
+//            goodsService.convertNewDeliveriesStatusToCanceled(delivery.getCarrier().getName());
+//            goodsService.removeExpiredFoodStuffs();
+        }
+   //     costOfAllGoods.setValue(costAllGoods);
+    }
 
     @Install(to = "truckTable.add", subject = "screenOptionsSupplier")
     private ScreenOptions truckTableAddScreenOptionsSupplier() {

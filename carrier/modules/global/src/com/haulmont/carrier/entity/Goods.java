@@ -50,4 +50,13 @@ public class Goods extends StandardEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "name='" + name + '\'' +
+                ", cost=" + cost +
+                ", deliveries=" + deliveries +
+                '}';
+    }
 }

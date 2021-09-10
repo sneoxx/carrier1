@@ -125,4 +125,5 @@ public class Delivery extends StandardEntity {
     public void postConstruct() {
         setStatus(StatusDelivery.NEW);
     }
+
 }

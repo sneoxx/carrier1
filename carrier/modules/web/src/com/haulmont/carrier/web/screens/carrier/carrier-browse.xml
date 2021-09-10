@@ -31,6 +31,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="buttonConvertNewDeliveriesStatusToCanceled" caption="New to Canceled" trackSelection="true"/>
             </actions>
             <columns>
                 <column id="name"/>
@@ -43,6 +44,7 @@
                 <button id="createBtn" action="carriersTable.create"/>
                 <button id="editBtn" action="carriersTable.edit"/>
                 <button id="removeBtn" action="carriersTable.remove"/>
+                <button id="buttonConvertNewDeliveriesStatusToCanceled" action="carriersTable.buttonConvertNewDeliveriesStatusToCanceled"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

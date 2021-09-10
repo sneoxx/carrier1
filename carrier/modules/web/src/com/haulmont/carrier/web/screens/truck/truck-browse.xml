@@ -14,6 +14,7 @@
             <loader id="trucksDl">
                 <query>
                     <![CDATA[select e from carrier_Truck e where e.carrier = :carrier]]>
+<!--                    <![CDATA[select e from carrier_Truck e]]>-->
                 </query>
             </loader>
         </collection>
