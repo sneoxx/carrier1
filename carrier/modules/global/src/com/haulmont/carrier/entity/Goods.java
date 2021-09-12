@@ -1,5 +1,6 @@
 package com.haulmont.carrier.entity;
 
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
@@ -18,14 +19,25 @@ public class Goods extends StandardEntity {
     @Column(name = "NAME", nullable = false)
     private String name;
 
+    @MetaProperty
+    @Transient
+    private String productType;
+
     @NotNull
     @Column(name = "COST", nullable = false)
     private BigDecimal cost;
+
     @JoinTable(name = "CARRIER_DELIVERY_INDUSTRIAL_PRODUCTS_LINK",
             joinColumns = @JoinColumn(name = "INDUSTRIAL_PRODUCTS_ID"),
             inverseJoinColumns = @JoinColumn(name = "DELIVERY_ID"))
     @ManyToMany
     private List<Delivery> deliveries;
+
+
+    public String getProductType() {
+        productType = getClass().toString();
+        return productType;
+    }
 
     public List<Delivery> getDeliveries() {
         return deliveries;

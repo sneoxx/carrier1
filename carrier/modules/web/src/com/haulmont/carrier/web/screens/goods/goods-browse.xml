@@ -32,9 +32,10 @@
             </loader>
         </collection>
     </data>
-    <layout>
 
-        <tabSheet id="tabSheetGoods">
+    <layout expand="tabSheetGoods"
+            spacing="true">
+    <tabSheet id="tabSheetGoods">
             <tab id="foodStuffsTab" caption="FoodStuffs" margin="true" spacing="true">
                 <groupTable id="foodStuffsesTable"
                             width="100%"
@@ -55,6 +56,7 @@
                         <column id="name"/>
                         <column id="cost"/>
                         <column id="expirationDate"/>
+                        <column id="productType" caption="msg://com.abc.sales.entity/FoodStuffs.name"/>
                     </columns>
                 </groupTable>
             </tab>
@@ -78,6 +80,7 @@
                         <column id="name"/>
                         <column id="cost"/>
                         <column id="weight"/>
+                        <column id="productType"/>
                     </columns>
                 </groupTable>
             </tab>

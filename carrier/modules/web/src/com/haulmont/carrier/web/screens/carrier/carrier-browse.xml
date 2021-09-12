@@ -7,7 +7,7 @@
     <data readOnly="true">
         <collection id="carriersDc"
                     class="com.haulmont.carrier.entity.Carrier">
-            <view extends="_local"/>
+            <view extends="carrier-view-full"/>
             <loader id="carriersDl">
                 <query>
                     <![CDATA[select e from carrier_Carrier e]]>
@@ -26,6 +26,7 @@
         </filter>
         <groupTable id="carriersTable"
                     width="100%"
+                    multiselect="true"
                     dataContainer="carriersDc">
             <actions>
                 <action id="create" type="create"/>

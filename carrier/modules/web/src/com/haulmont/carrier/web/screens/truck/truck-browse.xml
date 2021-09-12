@@ -13,8 +13,12 @@
             </view>
             <loader id="trucksDl">
                 <query>
-                    <![CDATA[select e from carrier_Truck e where e.carrier = :carrier]]>
-<!--                    <![CDATA[select e from carrier_Truck e]]>-->
+                    <![CDATA[select e from carrier_Truck e]]>
+                    <condition>
+                              <c:jpql>
+                                <c:where>e.carrier = :carrier</c:where>
+                            </c:jpql>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -22,7 +26,7 @@
     <dialogMode height="600"
                 width="800"/>
     <facets>
-        <dataLoadCoordinator auto="false"/>
+        <dataLoadCoordinator auto="true"/>
     </facets>
 
     <layout expand="trucksTable"

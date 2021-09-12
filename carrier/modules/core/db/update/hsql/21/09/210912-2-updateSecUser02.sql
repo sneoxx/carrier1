@@ -1,0 +1,1 @@
+update SEC_USER set DTYPE = 'carrier_ExtUser' where DTYPE is null ;

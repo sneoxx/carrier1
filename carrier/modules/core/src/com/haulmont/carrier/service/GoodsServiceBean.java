@@ -31,9 +31,9 @@ public class GoodsServiceBean implements GoodsService {
 
 
     //    Создайте GoodsService и реализуйте метод для перевода всех доставок определенного перевозчика в статусе NEW в состояние CANCEL.
-//    Метод принимает имя перевозчика.
-//    Создайте отдельный Spring Component для получения всех ID доставок в различных состояниях определенных перевозчиков и используйте его
-//    в основном сервисе.
+    //    Метод принимает имя перевозчика.
+    //    Создайте отдельный Spring Component для получения всех ID доставок в различных состояниях определенных перевозчиков и используйте его
+    //    в основном сервисе.
     @Override
     public void convertNewDeliveriesStatusToCanceled(String carrierName) {
         log.info("convertNewDeliveriesToCanceled() carrierName: {} ", carrierName);
@@ -43,8 +43,6 @@ public class GoodsServiceBean implements GoodsService {
             final EntityManager entityManager = persistence.getEntityManager();
             for (Map.Entry<UUID, StatusDelivery> item : mapAllCarrierDeliveries.entrySet()) {
                 if (item.getValue().toString().equals("NEW")) {
-//                System.out.println(item.getValue());
-//                System.out.println(item.getValue().toString().equals("NEW"));
                     uuidList.add(item.getKey());
                 }
             }
@@ -60,7 +58,7 @@ public class GoodsServiceBean implements GoodsService {
                     item.setStatus(StatusDelivery.CANCEL);
                 }
                 transaction.commit();
-                log.info("Доставки NEW поставщика {} установлены в состояние CANCEL", carrierName);
+                log.info("Доставки: {} NEW поставщика: {} установлены в состояние CANCEL", deliveryList, carrierName);
             } else {
                 log.info("У поставщика {} нет доставок в состоянии NEW", carrierName);
             }

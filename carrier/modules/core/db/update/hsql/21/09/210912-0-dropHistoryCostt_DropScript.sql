@@ -1,0 +1,1 @@
+drop table CARRIER_HISTORY_COSTT__U07304 if exists cascade ;

@@ -2,6 +2,7 @@ package com.haulmont.carrier.entity;
 
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@PublishEntityChangedEvents
 @Table(name = "CARRIER_CARRIER")
 @Entity(name = "carrier_Carrier")
 @NamePattern("%s|name")
@@ -30,6 +32,16 @@ public class Carrier extends StandardEntity {
 
     @OneToMany(mappedBy = "carrier")
     private List<Delivery> deliveries = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "carrier")
+    private ExtUser extUser;
+
+    public ExtUser getExtUser() {
+        return extUser;
+    }
+
+    public void setExtUser(ExtUser extUser) {
+        this.extUser = extUser;
+    }
 
     public String getEmail() {
         return email;

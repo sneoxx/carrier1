@@ -7,6 +7,7 @@ import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,8 +17,8 @@ import java.util.List;
 public class Delivery extends StandardEntity {
     private static final long serialVersionUID = 1573604847669153165L;
 
-    @NotNull
     @Column(name = "NUMBER_", nullable = false)
+    @NotNull
     private String number;
 
     @NotNull
@@ -28,9 +29,10 @@ public class Delivery extends StandardEntity {
     @Column(name = "DATE_", nullable = false)
     private LocalDate date;
 
-    @NotNull
     @Column(name = "DISTANCE", nullable = false)
-    private String distance;
+    @NotNull
+    @Positive(message = "{msg://carrier_Delivery.distance.validation.Positive}")
+    private Integer distance;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CARRIER_ID")
@@ -57,6 +59,14 @@ public class Delivery extends StandardEntity {
     })
     private Address address;
 
+    public void setDistance(Integer distance) {
+        this.distance = distance;
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
+
     public void setGoods(List<Goods> goods) {
         this.goods = goods;
     }
@@ -79,14 +89,6 @@ public class Delivery extends StandardEntity {
 
     public void setCarrier(Carrier carrier) {
         this.carrier = carrier;
-    }
-
-    public String getDistance() {
-        return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
     }
 
     public LocalDate getDate() {

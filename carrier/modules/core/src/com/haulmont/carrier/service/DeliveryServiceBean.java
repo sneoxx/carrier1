@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class DeliveryServiceBean implements DeliveryService {
     private Persistence persistence;
 
 
-    //Расчет стоимости доставки, стоимость доставки перевозчика (cost) умноженное на расстояние и веса товара,
+    //1 Расчет стоимости доставки, стоимость доставки перевозчика (cost) умноженное на расстояние и веса товара,
     // актуально только для промышленных товаров в доставке.
     @Override
     public BigDecimal getCostOfDelivery(Delivery delivery) {
@@ -43,7 +44,7 @@ public class DeliveryServiceBean implements DeliveryService {
 
             BigDecimal carrierShippingCost = delivery1.getCarrier().getCost();
 
-            int transportationDistance = Integer.parseInt(delivery1.getDistance());
+            int transportationDistance = delivery1.getDistance();
 
             transaction.commit();
 
@@ -65,41 +66,41 @@ public class DeliveryServiceBean implements DeliveryService {
     }
 
     // 2. Сервис проверки, что дата доставки не превышает срок годности товара, актуально только для продуктов, не используется запрос в базу.
-    // Если дата доставки превышает срок годнгости вернет true
+    // Если дата доставки превышает срок годности вернет true
     @Override
-    public Boolean checkExpirationDate (Delivery delivery) {
+    public List<FoodStuffs> checkExpirationDate (Delivery delivery) {
 
         View viewWight = new View(Delivery.class)
                 .addProperty("goods");
 
         try (final Transaction transaction = persistence.createTransaction()) {
             final EntityManager entityManager = persistence.getEntityManager();
-            final Query query = entityManager.createQuery("select d from carrier_Delivery d where d.id = :deliveryId").setView(viewWight);
-            query.setParameter("deliveryId", delivery.getId());
-            Delivery delivery1 = (Delivery) query.getSingleResult();
+//            final Query query = entityManager.createQuery("select d from carrier_Delivery d where d.id = :deliveryId").setView(viewWight);
+//            query.setParameter("deliveryId", delivery.getId());
+//            Delivery delivery1 = (Delivery) query.getSingleResult();
             transaction.commit();
 
-            boolean result = false;
-            List<FoodStuffs> foodStuffs = new ArrayList<>();
+            List<FoodStuffs> foodStuffs  = new ArrayList<>();
             for (int i = 0; i < delivery.getGoods().size(); i++) {
 //            System.out.println(delivery.getGoods().get(i).getClass().toString().endsWith("Stuffs"));
-                if (delivery.getGoods().get(i) instanceof FoodStuffs) {
+               if (delivery.getGoods().get(i) instanceof FoodStuffs) {
                     foodStuffs.add((FoodStuffs) delivery.getGoods().get(i));
                 }
             }
 //            System.out.println(foodStuffs);
 //            System.out.println("111" + foodStuffs.get(0).getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().compareTo(delivery.getDate()));
+            List<FoodStuffs> foodProductsWithAnExpirationDateExceedingTheDeliveryDate = new ArrayList<>();
             for (int i = 0; i < foodStuffs.size(); i++) {
                 if (foodStuffs.get(i).getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().compareTo(delivery.getDate()) < 0) {
 //                    System.out.println(foodStuffs.get(i).getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().compareTo(delivery.getDate()));
 //                    result = true;
-                    log.info("Дата доставки превышает срок годности товара в доставке {} :", foodStuffs);
-                return result ;
+                    log.info("Дата доставки: {} превышает срок годности товара {} :", delivery, foodStuffs);
+                    foodProductsWithAnExpirationDateExceedingTheDeliveryDate.add(foodStuffs.get(i));
                 }
 //        log.info(String.valueOf(foodStuffs));
             }
             log.info("Дата доставки не превышает срок годности товара в доставке");
-            return result;
+            return foodProductsWithAnExpirationDateExceedingTheDeliveryDate;
         }
     }
 

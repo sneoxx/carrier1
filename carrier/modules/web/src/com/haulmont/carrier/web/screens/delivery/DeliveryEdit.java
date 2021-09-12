@@ -1,8 +1,10 @@
 package com.haulmont.carrier.web.screens.delivery;
 
+import com.haulmont.carrier.entity.FoodStuffs;
 import com.haulmont.carrier.entity.Goods;
 import com.haulmont.carrier.service.DeliveryService;
 import com.haulmont.carrier.service.GoodsService;
+import com.haulmont.cuba.core.global.PersistenceHelper;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.Label;
@@ -45,25 +47,35 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
-        List<Goods> changes = getEditedEntity().getGoods();
-        Delivery delivery = getEditedEntity();
-        BigDecimal costAllGoods = new BigDecimal("0.0");
-        for (Goods goods : changes) {
-            costAllGoods = costAllGoods.add(goods.getCost());
+        if (!PersistenceHelper.isNew(getEditedEntity())) {
+            List<Goods> changes = getEditedEntity().getGoods();
+            Delivery delivery = getEditedEntity();
+            BigDecimal costAllGoods = new BigDecimal("0.0");
+            for (Goods goods : changes) {
+                costAllGoods = costAllGoods.add(goods.getCost());
 
-            deliveryService.getCostOfDelivery(delivery);
-            deliveryService.checkExpirationDate(delivery);
+//            deliveryService.getCostOfDelivery(delivery);
+//            deliveryService.checkExpirationDate(delivery);
 //            deliveryService.getDeliveryInTheLast7Days(delivery);
-//            goodsService.convertNewDeliveriesStatusToCanceled(delivery.getCarrier().getName());
+//                goodsService.convertNewDeliveriesStatusToCanceled(delivery.getCarrier().getName());
 //            goodsService.removeExpiredFoodStuffs();
+            }
+                 costOfAllGoods.setValue(costAllGoods);
         }
-   //     costOfAllGoods.setValue(costAllGoods);
     }
 
     @Install(to = "truckTable.add", subject = "screenOptionsSupplier")
     private ScreenOptions truckTableAddScreenOptionsSupplier() {
         return new MapScreenOptions(ParamsMap.of("selectedСarrier", getEditedEntity().getCarrier()));
     }
+
+
+//    Если нет не одного товара в доставке, то при сохранении такого заказа, показывать предупреждение пользователю с вопросом продолжить сохранение
+//    и закрыть экран, или остаться на экране редактирования
+
+//    Измените экран создания доставки, при сохранении требуется проверить, что все продукты в заказе не превышают срок доставки.
+//    Если такие присутствуют, показываем диалоговое окно пользователю с предупреждением, о том, что данные продукты будут удалены из доставки.
+//    После получения согласия от пользователя исключаем их и сохраняем.
 
     @Subscribe
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
@@ -74,12 +86,30 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
                     .withMessage("Do you want to be left without goods in delivery?")
                     .withActions(
                             new DialogAction(DialogAction.Type.OK).withHandler(e -> {
+                                getEditedEntity().setNumber("0");
                                 event.resume();
                             }),
                             new DialogAction(DialogAction.Type.CANCEL)
                     )
                     .show();
             event.preventCommit();
+        } else {
+            List<FoodStuffs> foodProductsWithAnExpirationDateExceedingTheDeliveryDate = deliveryService.checkExpirationDate(getEditedEntity());
+            if (foodProductsWithAnExpirationDateExceedingTheDeliveryDate.size() > 0) {
+                dialogs.createOptionDialog()
+                        .withCaption("Confirmation")
+                        .withMessage("The delivery date exceeds the expiration date of the item in delivery. Such items will be removed from delivery.")
+                        .withActions(
+                                new DialogAction(DialogAction.Type.OK).withHandler(e -> {
+                                    changes.removeAll(foodProductsWithAnExpirationDateExceedingTheDeliveryDate);
+                                    getEditedEntity().setNumber("0");
+                                    event.resume();
+                                }),
+                                new DialogAction(DialogAction.Type.CANCEL)
+                        )
+                        .show();
+                event.preventCommit();
+            }
         }
     }
 

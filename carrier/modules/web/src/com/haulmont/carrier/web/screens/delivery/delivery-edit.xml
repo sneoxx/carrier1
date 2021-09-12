@@ -32,7 +32,7 @@
             <column width="350px">
                 <label dataContainer="truckDc" property="truckType"/>
 
-                <textField id="numberField" property="number"/>
+                <textField id="numberField" property="number" visible="false"/>
                 <lookupField id="statusField" property="status"/>
                 <dateField id="dateField" property="date"/>
                 <textField id="distanceField" property="distance"/>

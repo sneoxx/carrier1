@@ -3,9 +3,12 @@ package com.haulmont.carrier.web.screens.truck;
 import com.haulmont.carrier.entity.Carrier;
 import com.haulmont.carrier.service.CarrierService;
 import com.haulmont.carrier.service.TruckService;
+import com.haulmont.carrier.web.screens.delivery.DeliveryEdit;
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.carrier.entity.Truck;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
@@ -13,6 +16,8 @@ import javax.inject.Inject;
 @UiDescriptor("truck-browse.xml")
 @LookupComponent("trucksTable")
 public class TruckBrowse extends StandardLookup<Truck> {
+
+    private static final Logger log = LoggerFactory.getLogger(DeliveryEdit.class);
 
     @Inject
     private CollectionLoader<Truck> trucksDl;
@@ -23,22 +28,10 @@ public class TruckBrowse extends StandardLookup<Truck> {
     @Subscribe
     private void onInit(InitEvent event) {
         ScreenOptions options = event.getOptions();
-
-//        result != null? result : BigDecimal.ZERO;
-        System.out.println("2 "+  ((MapScreenOptions) options).getParams().get("selectedСarrier"));
-        System.out.println(((MapScreenOptions) options).getParams().get("selectedСarrier") != null);
-        if(((MapScreenOptions) options).getParams().get("selectedСarrier") != null){
-        if ( options instanceof MapScreenOptions ) {
-            Object message = ((MapScreenOptions) options).getParams().get("selectedСarrier");
-
-            System.out.println("11 " + message);
-            trucksDl.setParameter("carrier", message);
-
-        }
-        } else {
-            trucksDl.setParameter("carrier", carrierService.getAllCarrier());
-//           System.out.println(carrierService.getAllCarrier().get(0));
-
+        if (options instanceof MapScreenOptions ) {
+            Object passedParameter  = ((MapScreenOptions) options).getParams().get("selectedСarrier");
+            trucksDl.setParameter("carrier", passedParameter);
+            log.info("В экран TruckBrowse передан параметр: {} ", passedParameter);
+         }
         }
     }
-}

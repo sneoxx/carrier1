@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://historyCostBrowse.caption"
+        focusComponent="historyCostsTable"
+        messagesPack="com.haulmont.carrier.web.screens.historycost">
+    <data readOnly="true">
+        <collection id="historyCostsDc"
+                    class="com.haulmont.carrier.entity.HistoryCost">
+            <view extends="_local">
+                <property name="carrier" view="_minimal"/>
+            </view>
+            <loader id="historyCostsDl">
+                <query>
+                    <![CDATA[select e from carrier_HistoryCost e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="historyCostsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="historyCostsTable"
+                dataLoader="historyCostsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="historyCostsTable"
+                    width="100%"
+                    dataContainer="historyCostsDc">
+            <actions>
+            </actions>
+            <columns>
+                <column id="carrier"/>
+                <column id="changeDate"/>
+                <column id="cost"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

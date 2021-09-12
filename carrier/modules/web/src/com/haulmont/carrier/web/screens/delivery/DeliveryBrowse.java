@@ -2,7 +2,9 @@ package com.haulmont.carrier.web.screens.delivery;
 
 import com.haulmont.carrier.service.DeliveryService;
 import com.haulmont.carrier.service.GoodsService;
+import com.haulmont.cuba.core.entity.Entity;
 import com.haulmont.cuba.gui.Notifications;
+import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.carrier.entity.Delivery;
@@ -17,6 +19,28 @@ import java.util.Set;
 @LookupComponent("deliveriesTable")
 @LoadDataBeforeShow
 public class DeliveryBrowse extends StandardLookup<Delivery> {
+
+    @Inject
+    DeliveryService deliveryService;
+
+    @Inject
+    UiComponents uiComponents;
+
+    @Install(to = "deliveriesTable.costOfDelivery", subject = "columnGenerator")
+    private Component deliveriesTableCostoOfDeliveryColumnGenerator(Delivery delivery) {
+        Label<BigDecimal> label = uiComponents.create(Label.TYPE_BIGDECIMAL);
+        label.setValue(deliveryService.getCostOfDelivery(delivery));
+        return label;
+    }
+
+
+
+//    public Component generateCostoOfDeliveryColumn(Delivery delivery) {
+//        Image image = uiComponents.create(Image.NAME);
+//        image.setSource(FileDescriptorResource.class).setFileDescriptor(delivery);
+//        return null;
+//    }
+
 
 //    @Install(to = "deliveriesTable.&#1089;ostOfDelivery", subject = "columnGenerator")
 //    private Component deliveriesTable1089OstOfDeliveryColumnGenerator(Delivery delivery) {

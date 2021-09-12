@@ -97,7 +97,7 @@ create table CARRIER_DELIVERY (
     NUMBER_ varchar(255) not null,
     STATUS integer not null,
     DATE_ date not null,
-    DISTANCE varchar(255) not null,
+    DISTANCE integer not null,
     CARRIER_ID varchar(36),
     --
     primary key (ID)
@@ -124,3 +124,27 @@ create table CARRIER_DELIVERY_INDUSTRIAL_PRODUCTS_LINK (
     primary key (DELIVERY_ID, INDUSTRIAL_PRODUCTS_ID)
 )^
 -- end CARRIER_DELIVERY_INDUSTRIAL_PRODUCTS_LINK
+
+-- begin CARRIER_HISTORY_COST
+create table CARRIER_HISTORY_COST (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    CHANGE_DATE timestamp not null,
+    COST decimal(19, 2) not null,
+    CARRIER_ID varchar(36) not null,
+    --
+    primary key (ID)
+)^
+-- end CARRIER_HISTORY_COST
+-- begin SEC_USER
+alter table SEC_USER add column CARRIER_ID varchar(36) ^
+alter table SEC_USER add column DTYPE varchar(31) ^
+update SEC_USER set DTYPE = 'carrier_ExtUser' where DTYPE is null ^
+-- end SEC_USER

@@ -52,6 +52,7 @@
                 <column id="address.street"/>
                 <column id="address.house"/>
                 <column id="goods"/>
+                <column id="costOfDelivery" caption="Cost of delivery"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
@@ -63,7 +64,7 @@
 
             </buttonsPanel>
         </groupTable>
-        <hbox id="lookupActions" spacing="true" visible="false">
+        <hbox id="lookupActions" spacing="true" visible="true">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>
         </hbox>

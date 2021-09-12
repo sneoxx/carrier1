@@ -28,6 +28,7 @@ public class Truck extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRUCK_TYPE_ID")
     private TruckType truckType;
+
     @JoinTable(name = "CARRIER_DELIVERY_TRUCK_LINK",
             joinColumns = @JoinColumn(name = "TRUCK_ID"),
             inverseJoinColumns = @JoinColumn(name = "DELIVERY_ID"))
