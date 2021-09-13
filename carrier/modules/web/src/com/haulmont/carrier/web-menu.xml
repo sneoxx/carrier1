@@ -5,6 +5,7 @@
         <item screen="carrier_Carrier.browse" caption="mainMsg://menu_config.carrier_Carrier.browse"/>
         <item screen="carrier_HistoryCost.browse" caption="mainMsg://menu_config.carrier_HistoryCost.browse"/>
         <item screen="carrier_Delivery.browse" caption="mainMsg://menu_config.carrier_Delivery.browse"/>
+        <item screen="carrier_InfoScreen" caption="mainMsg://menu_config.carrier_InfoScreen"/>
     </menu>
 
     <menu id="Reference-books" insertBefore="administration" caption="Reference-books">
