@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="carrier" transaction-type="RESOURCE_LOCAL">
+
+        <class>com.haulmont.carrier.entity.Carrier</class>
+        <class>com.haulmont.carrier.entity.TruckType</class>
+        <class>com.haulmont.carrier.entity.Truck</class>
+        <class>com.haulmont.carrier.entity.FoodStuffs</class>
+        <class>com.haulmont.carrier.entity.Goods</class>
+        <class>com.haulmont.carrier.entity.IndustrialProducts</class>
+        <class>com.haulmont.carrier.entity.Address</class>
+        <class>com.haulmont.carrier.entity.Delivery</class>
+        <class>com.haulmont.carrier.entity.HistoryCost</class>
+        <class>com.haulmont.carrier.entity.ExtUser</class>
+    </persistence-unit>
+</persistence>

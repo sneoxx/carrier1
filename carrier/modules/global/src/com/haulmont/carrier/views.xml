@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view entity="carrier_Delivery" name="delivery-view" extends="_local">
+        <property name="goods" view="_minimal">
+            <property name="deliveries" view="_minimal">
+                <property name="status"/>
+            </property>
+        </property>
+    </view>
+    <view entity="carrier_Carrier" name="carrier-view-full" extends="_local">
+        <property name="deliveries" view="_minimal">
+            <property name="number"/>
+            <property name="status"/>
+            <property name="date"/>
+            <property name="distance"/>
+        </property>
+    </view>
+
+    <view class="com.haulmont.carrier.entity.ExtUser"
+          name="user.browse"
+          extends="user.browse">
+        <property name="carrier"/>
+    </view>
+
+    <view class="com.haulmont.carrier.entity.ExtUser"
+          name="user.edit"
+          extends="user.edit">
+        <property name="carrier"/>
+    </view>
+
+</views>

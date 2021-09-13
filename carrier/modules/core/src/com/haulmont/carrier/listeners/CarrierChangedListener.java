@@ -6,6 +6,7 @@ import com.haulmont.carrier.entity.HistoryCost;
 import com.haulmont.cuba.core.TransactionalDataManager;
 import com.haulmont.cuba.core.app.events.AttributeChanges;
 import com.haulmont.cuba.core.app.events.EntityChangedEvent;
+import com.haulmont.cuba.core.global.TimeSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,9 @@ public class CarrierChangedListener {
     @Inject
     private TransactionalDataManager txDm;
 
+    @Inject
+    protected TimeSource timeSource;
+
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void beforeCommit(EntityChangedEvent<Carrier, UUID> event) {
         HistoryCost historyCost = new HistoryCost();
@@ -34,7 +38,7 @@ public class CarrierChangedListener {
         if (changes.isChanged("cost")) {
             historyCost.setCost(carrier.getCost());
             historyCost.setCarrier(carrier);
-            historyCost.setChangeDate(new Date());
+            historyCost.setChangeDate(timeSource.currentTimestamp());
             log.info("У перевозчика: {} новая стоимость доставки: {}",carrier.getName(), carrier.getCost());
             txDm.save(historyCost);
         }

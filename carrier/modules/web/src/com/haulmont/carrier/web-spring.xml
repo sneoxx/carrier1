@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:gui="http://schemas.haulmont.com/cuba/spring/cuba-gui.xsd">
+
+    <!-- Annotation-based beans -->
+    <context:component-scan base-package="com.haulmont.carrier"/>
+    
+    <gui:screens base-packages="com.haulmont.carrier.web"/>
+    <bean id="carrier_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="carrier_DeliveryService" value="com.haulmont.carrier.service.DeliveryService"/>
+                <entry key="carrier_TruckService" value="com.haulmont.carrier.service.TruckService"/>
+                <entry key="carrier_CarrierService" value="com.haulmont.carrier.service.CarrierService"/>
+                <entry key="carrier_GoodsService" value="com.haulmont.carrier.service.GoodsService"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>

@@ -32,6 +32,7 @@ public class Carrier extends StandardEntity {
 
     @OneToMany(mappedBy = "carrier")
     private List<Delivery> deliveries = new ArrayList<>();
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "carrier")
     private ExtUser extUser;
 
