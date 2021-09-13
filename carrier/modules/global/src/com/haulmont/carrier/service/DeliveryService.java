@@ -16,7 +16,7 @@ public interface DeliveryService {
 
     List<FoodStuffs> checkExpirationDate (Delivery delivery);
 
-    List<Delivery> getDeliveryInTheLast7Days (Delivery delivery);
+    List<Delivery> getDeliveryInTheLast7Days (Carrier carrier);
 
 //    List<Goods> getAllFoodStuffs();
 //

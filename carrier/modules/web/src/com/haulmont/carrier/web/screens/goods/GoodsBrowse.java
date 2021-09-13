@@ -26,41 +26,33 @@ public class GoodsBrowse extends StandardLookup<Entity> {
     protected TabSheet tabSheetGoods;
 
     @Inject
-    private HBoxLayout lookupActions;
-
-    @Inject
     UiComponents uiComponents;
-
-
-//    @Subscribe("industrialProductsesTable")
-//    public void onIndustrialProductsesTableSelection(Table.SelectionEvent<IndustrialProducts> event) {
-//        lookupActions.setEnabled(true);
-//        lookupActions.setVisible(true);
-//    }
-//
-//    @Subscribe("foodStuffsesTable")
-//    public void onFoodStuffsesTableSelection(Table.SelectionEvent<FoodStuffs> event) {
-//        lookupActions.setEnabled(true);
-//        lookupActions.setVisible(true);
-//    }
-
-    @Subscribe
-    protected void onInit(InitEvent event) {
-        tabSheetGoods.addSelectedTabChangeListener(selectedTabChangeEvent -> {
-            if ("foodStuffsTab".equals(selectedTabChangeEvent.getSelectedTab().getName())) {
-                lookupActions.setEnabled(true);
-                lookupActions.setVisible(true);
-            } else if ("industrialProductsTab".equals(selectedTabChangeEvent.getSelectedTab().getName())) {
-                lookupActions.setEnabled(true);
-                lookupActions.setVisible(true);
-            }
-        });
-    }
-
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         getScreenData().loadAll();
+    }
+
+    @Subscribe("industrialProductsesTable")
+    public void onIndustrialProductsesTableSelection(Table.SelectionEvent<IndustrialProducts> event) {
+       extracted(true);
+    }
+
+    @Subscribe("foodStuffsesTable")
+    public void onFoodStuffsesTableSelection(Table.SelectionEvent<FoodStuffs> event) {
+        extracted(true);
+    }
+
+    @Subscribe
+    protected void onInit(InitEvent event) {
+        tabSheetGoods.addSelectedTabChangeListener(selectedTabChangeEvent -> {
+            extracted(false);
+        });
+    }
+
+    private void extracted(Boolean enable){
+        Action commitAction = getWindow().getAction(LOOKUP_SELECT_ACTION_ID);
+        commitAction.setEnabled(enable);
     }
 
     @Override
@@ -73,15 +65,6 @@ public class GoodsBrowse extends StandardLookup<Entity> {
         }
         return foodStuffsesTable;
     }
-
-//    @Install(to = "foodStuffsesTable.productType", subject = "columnGenerator")
-//    private Component foodStuffsesTableProductTypeColumnGenerator(FoodStuffs foodStuffs) {
-//        Label<String> label = uiComponents.create(Label.TYPE_STRING);
-//        String productType = foodStuffs.getProductType();
-//        label.setValue(productType.substring(productType.lastIndexOf('.') + 1));
-//        return label;
-//
-//    }
 
     @Install(to = "industrialProductsesTable.productType", subject = "columnGenerator")
     private Component industrialProductsesTableProductTypeColumnGenerator(IndustrialProducts industrialProducts) {

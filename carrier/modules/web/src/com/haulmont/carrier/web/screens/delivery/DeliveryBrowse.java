@@ -34,7 +34,6 @@ public class DeliveryBrowse extends StandardLookup<Delivery> {
     }
 
 
-
 //    public Component generateCostoOfDeliveryColumn(Delivery delivery) {
 //        Image image = uiComponents.create(Image.NAME);
 //        image.setSource(FileDescriptorResource.class).setFileDescriptor(delivery);

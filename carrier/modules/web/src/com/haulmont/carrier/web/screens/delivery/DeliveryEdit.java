@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 @UiController("carrier_Delivery.edit")
 @UiDescriptor("delivery-edit.xml")
@@ -69,18 +70,16 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
         return new MapScreenOptions(ParamsMap.of("selectedСarrier", getEditedEntity().getCarrier()));
     }
 
-
 //    Если нет не одного товара в доставке, то при сохранении такого заказа, показывать предупреждение пользователю с вопросом продолжить сохранение
 //    и закрыть экран, или остаться на экране редактирования
 
 //    Измените экран создания доставки, при сохранении требуется проверить, что все продукты в заказе не превышают срок доставки.
 //    Если такие присутствуют, показываем диалоговое окно пользователю с предупреждением, о том, что данные продукты будут удалены из доставки.
 //    После получения согласия от пользователя исключаем их и сохраняем.
-
     @Subscribe
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
         List<Goods> changes = getEditedEntity().getGoods();
-        if (changes.size() == 0) {
+        if (CollectionUtils.isEmpty(changes)) {
             dialogs.createOptionDialog()
                     .withCaption("Confirmation")
                     .withMessage("Do you want to be left without goods in delivery?")
@@ -116,7 +115,7 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
     @Subscribe(id = "deliveryDc", target = Target.DATA_CONTAINER)
     private void onDeliveryDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<Delivery> event) {
         String changedProperty = event.getProperty();
-        log.info("Меняется событие: {} ", changedProperty);
+        log.debug("Меняется событие: {} ", changedProperty);
         if ("carrier".equals(changedProperty)) {
             getEditedEntity().setTruck(null);
         }

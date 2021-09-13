@@ -28,8 +28,6 @@ public class GoodsServiceBean implements GoodsService {
     @Inject
     private GoodsMBean goodsMBean;
 
-
-
     //    Создайте GoodsService и реализуйте метод для перевода всех доставок определенного перевозчика в статусе NEW в состояние CANCEL.
     //    Метод принимает имя перевозчика.
     //    Создайте отдельный Spring Component для получения всех ID доставок в различных состояниях определенных перевозчиков и используйте его

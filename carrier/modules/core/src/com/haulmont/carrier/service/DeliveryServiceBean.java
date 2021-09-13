@@ -25,7 +25,6 @@ public class DeliveryServiceBean implements DeliveryService {
     @Inject
     private Persistence persistence;
 
-
     //1 Расчет стоимости доставки, стоимость доставки перевозчика (cost) умноженное на расстояние и веса товара,
     // актуально только для промышленных товаров в доставке.
     @Override
@@ -55,69 +54,56 @@ public class DeliveryServiceBean implements DeliveryService {
                 }
             }
             double weightOfAllShippingItems = 0.0;
-            for (int i = 0; i < industrialProducts.size(); i++) {
-                weightOfAllShippingItems = weightOfAllShippingItems + industrialProducts.get(i).getWeight();
+            for (IndustrialProducts industrialProduct : industrialProducts) {
+                weightOfAllShippingItems = weightOfAllShippingItems + industrialProduct.getWeight();
             }
 
             resultCostOfDelivery = new BigDecimal(String.valueOf(carrierShippingCost.multiply(new BigDecimal(transportationDistance * weightOfAllShippingItems))));
-            log.info("Стоимости доставки: {} ", resultCostOfDelivery);
+            log.debug("Стоимости доставки: {} ", resultCostOfDelivery);
         }
         return resultCostOfDelivery;
     }
 
     // 2. Сервис проверки, что дата доставки не превышает срок годности товара, актуально только для продуктов, не используется запрос в базу.
-    // Если дата доставки превышает срок годности вернет true
     @Override
     public List<FoodStuffs> checkExpirationDate (Delivery delivery) {
 
         View viewWight = new View(Delivery.class)
                 .addProperty("goods");
-
         try (final Transaction transaction = persistence.createTransaction()) {
             final EntityManager entityManager = persistence.getEntityManager();
-//            final Query query = entityManager.createQuery("select d from carrier_Delivery d where d.id = :deliveryId").setView(viewWight);
-//            query.setParameter("deliveryId", delivery.getId());
-//            Delivery delivery1 = (Delivery) query.getSingleResult();
+            final Query query = entityManager.createQuery("select d from carrier_Delivery d where d.id = :deliveryId").setView(viewWight);
+            query.setParameter("deliveryId", delivery.getId());
+            Delivery delivery1 = (Delivery) query.getSingleResult();
             transaction.commit();
-
             List<FoodStuffs> foodStuffs  = new ArrayList<>();
             for (int i = 0; i < delivery.getGoods().size(); i++) {
-//            System.out.println(delivery.getGoods().get(i).getClass().toString().endsWith("Stuffs"));
                if (delivery.getGoods().get(i) instanceof FoodStuffs) {
                     foodStuffs.add((FoodStuffs) delivery.getGoods().get(i));
                 }
             }
-//            System.out.println(foodStuffs);
-//            System.out.println("111" + foodStuffs.get(0).getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().compareTo(delivery.getDate()));
             List<FoodStuffs> foodProductsWithAnExpirationDateExceedingTheDeliveryDate = new ArrayList<>();
             for (int i = 0; i < foodStuffs.size(); i++) {
                 if (foodStuffs.get(i).getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().compareTo(delivery.getDate()) < 0) {
-//                    System.out.println(foodStuffs.get(i).getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().compareTo(delivery.getDate()));
-//                    result = true;
                     log.info("Дата доставки: {} превышает срок годности товара {} :", delivery, foodStuffs);
                     foodProductsWithAnExpirationDateExceedingTheDeliveryDate.add(foodStuffs.get(i));
                 }
-//        log.info(String.valueOf(foodStuffs));
-            }
+           }
             log.info("Дата доставки не превышает срок годности товара в доставке");
             return foodProductsWithAnExpirationDateExceedingTheDeliveryDate;
         }
     }
 
-
 //  3. Список доставок осуществленных за последние 7 дней перевозчиком.
     @Override
-    public List<Delivery> getDeliveryInTheLast7Days (Delivery delivery) {
-        log.info("delivery{} ", delivery);
+    public List<Delivery> getDeliveryInTheLast7Days (Carrier carrier) {
         try (final Transaction transaction = persistence.createTransaction()) {
             final EntityManager entityManager = persistence.getEntityManager();
-
             final Query query = entityManager.createQuery("select d from carrier_Delivery d where @between(d.date, now-5, now, day) and d.carrier = :carrierId");
-            query.setParameter("carrierId", delivery.getCarrier());
-            List<Delivery> deliveryList =  query.getResultList();
+            query.setParameter("carrier", carrier);
+            List<Delivery> deliveryList = query.getResultList();
             transaction.commit();
-            log.info("Доставки поставщика {} за последение 7 дней: {} ", delivery.getCarrier().getName(), deliveryList.get(0).getDate());
-//            goodsServiceBean.convertNewDeliveriesStatusToCanceled(delivery.getCarrier().getName());
+            log.info("Доставки поставщика {} за последение 7 дней: {} ", carrier.getName(), deliveryList.get(0).getDate());
             return deliveryList;
         }
     }
