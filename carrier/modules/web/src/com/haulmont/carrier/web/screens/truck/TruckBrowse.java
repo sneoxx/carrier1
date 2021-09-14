@@ -22,8 +22,6 @@ public class TruckBrowse extends StandardLookup<Truck> {
     @Inject
     private CollectionLoader<Truck> trucksDl;
 
-    @Inject
-    private CarrierService carrierService;
 
     @Subscribe
     private void onInit(InitEvent event) {

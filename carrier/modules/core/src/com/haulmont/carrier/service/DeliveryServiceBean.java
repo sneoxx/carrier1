@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service(DeliveryService.NAME)
 public class DeliveryServiceBean implements DeliveryService {
@@ -71,17 +72,44 @@ public class DeliveryServiceBean implements DeliveryService {
         View viewWight = new View(Delivery.class)
                 .addProperty("goods");
         try (final Transaction transaction = persistence.createTransaction()) {
-            final EntityManager entityManager = persistence.getEntityManager();
-            final Query query = entityManager.createQuery("select d from carrier_Delivery d where d.id = :deliveryId").setView(viewWight);
-            query.setParameter("deliveryId", delivery.getId());
-            Delivery delivery1 = (Delivery) query.getSingleResult();
-            transaction.commit();
+//            final EntityManager entityManager = persistence.getEntityManager();
+//            final Query query = entityManager.createQuery("select d from carrier_Delivery d where d.id = :deliveryId").setView(viewWight);
+//            query.setParameter("deliveryId", delivery.getId());
+//            Delivery delivery1 = (Delivery) query.getSingleResult();
+//            transaction.commit();
+
+
+
+
             List<FoodStuffs> foodStuffs  = new ArrayList<>();
+            List<UUID> uuidList = new ArrayList<>();
             for (int i = 0; i < delivery.getGoods().size(); i++) {
                if (delivery.getGoods().get(i) instanceof FoodStuffs) {
-                    foodStuffs.add((FoodStuffs) delivery.getGoods().get(i));
+                    foodStuffs.add((FoodStuffs)delivery.getGoods().get(i));
+                    uuidList.add(delivery.getId());
                 }
             }
+
+//            if (uuidList.size() != 0) {
+//                log.info("convertNewDeliveriesToCanceled() uuidList {} ", uuidList);
+//                final Query query = entityManager.createQuery("select d from carrier_Delivery d where d.id = :deliveryId");
+//                for (UUID item : uuidList) {
+//                    query.setParameter("deliveryId", item);
+//                }
+
+//            нужно получить ExpirationDate у foodStuffs запросом из базы
+            final EntityManager entityManager = persistence.getEntityManager();
+            final Query query = entityManager.createQuery("select d from carrier_FoodStuffs d where d.id = :deliveryId");
+            for (FoodStuffs item : foodStuffs) {
+                query.setParameter("deliveryId", item.getId());
+            }
+
+            foodStuffs = query.getResultList();
+//            for (Delivery item : deliveryList) {
+//                item.setStatus(StatusDelivery.CANCEL);
+//            }
+            transaction.commit();
+
             List<FoodStuffs> foodProductsWithAnExpirationDateExceedingTheDeliveryDate = new ArrayList<>();
             for (int i = 0; i < foodStuffs.size(); i++) {
                 if (foodStuffs.get(i).getExpirationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().compareTo(delivery.getDate()) < 0) {
@@ -99,7 +127,7 @@ public class DeliveryServiceBean implements DeliveryService {
     public List<Delivery> getDeliveryInTheLast7Days (Carrier carrier) {
         try (final Transaction transaction = persistence.createTransaction()) {
             final EntityManager entityManager = persistence.getEntityManager();
-            final Query query = entityManager.createQuery("select d from carrier_Delivery d where @between(d.date, now-5, now, day) and d.carrier = :carrierId");
+            final Query query = entityManager.createQuery("select d from carrier_Delivery d where @between(d.date, now-5, now, day) and d.carrier = :carrier");
             query.setParameter("carrier", carrier);
             List<Delivery> deliveryList = query.getResultList();
             transaction.commit();

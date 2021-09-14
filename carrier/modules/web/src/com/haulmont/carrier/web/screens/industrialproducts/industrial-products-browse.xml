@@ -36,6 +36,7 @@
                 <column id="name"/>
                 <column id="cost"/>
                 <column id="weight"/>
+                <column id="productType"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

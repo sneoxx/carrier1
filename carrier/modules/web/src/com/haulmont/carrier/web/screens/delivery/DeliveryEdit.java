@@ -78,6 +78,9 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
 //    После получения согласия от пользователя исключаем их и сохраняем.
     @Subscribe
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
+        if (getEditedEntity().getNumber() == null) {
+            getEditedEntity().setNumber("1");
+        }
         List<Goods> changes = getEditedEntity().getGoods();
         if (CollectionUtils.isEmpty(changes)) {
             dialogs.createOptionDialog()

@@ -3,6 +3,8 @@ package com.haulmont.carrier.entity;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.global.AppBeans;
+import com.haulmont.cuba.core.global.Messages;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,10 +35,9 @@ public class Goods extends StandardEntity {
     @ManyToMany
     private List<Delivery> deliveries;
 
-
-    public String getProductType() {
-        productType = getClass().toString();
-        return productType;
+     public String getProductType() {
+        Messages messages = AppBeans.get(Messages.class);
+        return messages.getMessage(this.getClass(),this.getClass().getSimpleName());
     }
 
     public List<Delivery> getDeliveries() {
@@ -63,12 +64,4 @@ public class Goods extends StandardEntity {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "name='" + name + '\'' +
-                ", cost=" + cost +
-                ", deliveries=" + deliveries +
-                '}';
-    }
 }

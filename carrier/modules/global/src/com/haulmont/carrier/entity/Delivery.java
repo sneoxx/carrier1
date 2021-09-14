@@ -18,7 +18,6 @@ public class Delivery extends StandardEntity {
     private static final long serialVersionUID = 1573604847669153165L;
 
     @Column(name = "NUMBER_", nullable = false)
-    @NotNull
     private String number;
 
     @NotNull

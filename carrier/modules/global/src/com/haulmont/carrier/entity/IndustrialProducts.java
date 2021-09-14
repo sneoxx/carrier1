@@ -23,10 +23,4 @@ public class IndustrialProducts extends Goods {
         this.weight = weight;
     }
 
-    @Override
-    public String toString() {
-        return "IndustrialProducts{" +
-                "weight=" + weight +
-                '}';
-    }
 }

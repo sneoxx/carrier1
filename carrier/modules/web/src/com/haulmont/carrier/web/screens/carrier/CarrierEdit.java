@@ -9,5 +9,6 @@ import com.haulmont.carrier.entity.Carrier;
 @LoadDataBeforeShow
 public class CarrierEdit extends StandardEditor<Carrier> {
 
+
 }
 

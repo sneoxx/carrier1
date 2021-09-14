@@ -23,10 +23,4 @@ public class FoodStuffs extends Goods {
         this.expirationDate = expirationDate;
     }
 
-    @Override
-    public String toString() {
-        return "FoodStuffs{" +
-                "expirationDate=" + expirationDate +
-                '}';
-    }
 }

@@ -36,6 +36,7 @@
                 <column id="name"/>
                 <column id="cost"/>
                 <column id="expirationDate"/>
+                <column id="productType"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

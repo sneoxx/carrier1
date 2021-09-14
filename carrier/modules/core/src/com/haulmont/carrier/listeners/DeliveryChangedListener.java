@@ -27,8 +27,9 @@ public class DeliveryChangedListener {
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void beforeCommit(EntityChangedEvent<Delivery, UUID> event) {
-        Delivery delivery = txDm.load(event.getEntityId()).one();
+
         if (event.getType() == EntityChangedEvent.Type.CREATED) {
+            Delivery delivery = txDm.load(event.getEntityId()).one();
             long uniqueNumber = uniqueNumbers.getNextNumber("deliveryNumber");
             delivery.setNumber(Long.toString(uniqueNumber));
             log.info("Для новой доставки {} сгенерирован номер {}:",delivery, uniqueNumber);
