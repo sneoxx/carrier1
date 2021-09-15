@@ -7,6 +7,7 @@ import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Carrier extends StandardEntity {
 
     @NotNull
     @Column(name = "COST", nullable = false)
+    @Positive
     private BigDecimal cost;
 
     @Column(name = "EMAIL")

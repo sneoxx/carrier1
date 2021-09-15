@@ -14,8 +14,10 @@
             <property name="status"/>
             <property name="date"/>
             <property name="distance"/>
+            <property name="extUser" view="_minimal"/>
         </property>
     </view>
+
 
     <view class="com.haulmont.carrier.entity.ExtUser"
           name="user.browse"
@@ -30,3 +32,4 @@
     </view>
 
 </views>
+

@@ -30,4 +30,26 @@ public class CarrierServiceBean implements CarrierService {
         return result;
     };
 
+//    @Override
+//    public List<Carrier> getAllCarrier() {
+//        List<Carrier> result;
+//        try (final Transaction transaction = persistence.createTransaction()) {
+//            final EntityManager entityManager = persistence.getEntityManager();
+//            final Query query = entityManager.createQuery("select c from carrier_Carrier c");
+//            result =  query.getResultList();
+//            System.out.println("getAllCarrier" + result);
+//            transaction.commit();
+//        }
+//        return result;
+//    };
+
+
+
+
+//    Carrier carrier = dataManager.loadValue(
+//            "select с from carrier_Carrier с where с.extUser = :user1", Carrier.class)
+////                .store("legacy_db")
+//            .parameter("user1", user)
+//            .one();
+
 }

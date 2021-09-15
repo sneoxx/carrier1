@@ -6,5 +6,4 @@
             template="/com/haulmont/carrier/web/screens/extuser/ext-user-browse.xml"/>
     <screen id="sec$User.edit"
             template="/com/haulmont/carrier/web/screens/extuser/ext-user-edit.xml"/>
-    <screen id="sec$User.browse" template="com/haulmont/carrier/web/screens/ext-user-browse.xml"/>
 </screen-config>

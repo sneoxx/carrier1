@@ -33,8 +33,9 @@ public class Delivery extends StandardEntity {
     @Positive(message = "{msg://carrier_Delivery.distance.validation.Positive}")
     private Integer distance;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CARRIER_ID")
+    @NotNull
     private Carrier carrier;
 
     @JoinTable(name = "CARRIER_DELIVERY_TRUCK_LINK",
@@ -57,6 +58,18 @@ public class Delivery extends StandardEntity {
             @AttributeOverride(name = "house", column = @Column(name = "ADDRESS_HOUSE"))
     })
     private Address address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EXT_USER_ID")
+    private ExtUser extUser;
+
+    public ExtUser getExtUser() {
+        return extUser;
+    }
+
+    public void setExtUser(ExtUser extUser) {
+        this.extUser = extUser;
+    }
 
     public void setDistance(Integer distance) {
         this.distance = distance;

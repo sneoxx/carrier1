@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
 
-
-
     <menu id="reference-books" insertBefore="administration" caption="Reference-books">
         <item screen="carrier_FoodStuffs.browse" caption="Food Stuffs"/>
         <item screen="carrier_IndustrialProducts.browse" caption="Industrial Products"/>
@@ -15,7 +13,7 @@
     <menu id="application-carrier" insertBefore="reference-books" caption="mainMsg://menu_config.application-carrier">
         <item screen="carrier_Carrier.browse" caption="mainMsg://menu_config.carrier_Carrier.browse"/>
         <item screen="carrier_HistoryCost.browse" caption="mainMsg://menu_config.carrier_HistoryCost.browse"/>
-        <item screen="carrier_Delivery.browse" caption="mainMsg://menu_config.carrier_Delivery.browse"/>
+        <item screen="carrier_Delivery.browse" caption="Delivery"/>
     </menu>
 
 </menu-config>

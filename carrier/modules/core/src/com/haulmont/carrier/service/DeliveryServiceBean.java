@@ -34,7 +34,8 @@ public class DeliveryServiceBean implements DeliveryService {
         BigDecimal resultCostOfDelivery = new BigDecimal(0.0);
 
         View viewWight = new View(Delivery.class)
-                .addProperty("goods");
+                .addProperty("goods")
+                ;
 
         try (final Transaction transaction = persistence.createTransaction()) {
             final EntityManager entityManager = persistence.getEntityManager();
@@ -125,17 +126,25 @@ public class DeliveryServiceBean implements DeliveryService {
 //  3. Список доставок осуществленных за последние 7 дней перевозчиком.
     @Override
     public List<Delivery> getDeliveryInTheLast7Days (Carrier carrier) {
+        log.info("777 {}", carrier.getName());
+        View viewWight1 = new View(Delivery.class)
+                .addProperty("carrier",new View(Carrier.class)
+                        .addProperty("name")
+                )
+                .addProperty("goods", new View(Goods.class)
+                        .addProperty("name")
+                );
         try (final Transaction transaction = persistence.createTransaction()) {
             final EntityManager entityManager = persistence.getEntityManager();
-            final Query query = entityManager.createQuery("select d from carrier_Delivery d where @between(d.date, now-5, now, day) and d.carrier = :carrier");
-            query.setParameter("carrier", carrier);
+            final Query query = entityManager.createQuery("select d from carrier_Delivery d where @between(d.date, now, now+1, day) and d.carrier = :carrierId");
+            query.setParameter("carrierId", carrier);
+            query.setView(viewWight1);
             List<Delivery> deliveryList = query.getResultList();
             transaction.commit();
-            log.info("Доставки поставщика {} за последение 7 дней: {} ", carrier.getName(), deliveryList.get(0).getDate());
+        //   log.info("Доставки поставщика {} за последение 7 дней: {} ", carrier.getName(), deliveryList.get(0).getDate());
             return deliveryList;
         }
     }
-
 
     public List<GoodsM> getAllFoodStuffs() {
         List<GoodsM> result;
