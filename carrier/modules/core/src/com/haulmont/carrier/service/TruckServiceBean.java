@@ -1,8 +1,6 @@
 package com.haulmont.carrier.service;
 
 import com.haulmont.carrier.entity.Delivery;
-import com.haulmont.carrier.entity.FoodStuffs;
-import com.haulmont.carrier.entity.Goods;
 import com.haulmont.cuba.core.EntityManager;
 import com.haulmont.cuba.core.Persistence;
 import com.haulmont.cuba.core.Query;
@@ -26,9 +24,8 @@ public class TruckServiceBean implements TruckService {
             final EntityManager entityManager = persistence.getEntityManager();
             final Query query = entityManager.createQuery("select t from carrier_Truck t");
             result =  query.getResultList();
-            System.out.println("getAllTruck() " + result);
             transaction.commit();
         }
         return result;
-    };
+    }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
 
-    <menu id="reference-books" insertBefore="administration" caption="Reference-books">
-        <item screen="carrier_FoodStuffs.browse" caption="Food Stuffs"/>
-        <item screen="carrier_IndustrialProducts.browse" caption="Industrial Products"/>
-        <menu id="transport" caption="Transport">
+    <menu id="reference-books" insertBefore="administration" caption="mainMsg://menu_config.carrier_Reference-books.browse">
+        <item screen="carrier_FoodStuffs.browse" caption="mainMsg://menu_config.carrier_FoodStuffs.browse"/>
+        <item screen="carrier_IndustrialProducts.browse" caption="mainMsg://menu_config.carrier_IndustrialProducts.browse"/>
+        <menu id="transport" caption="mainMsg://menu_config.carrier_Transport">
             <item screen="carrier_TruckType.browse" caption="mainMsg://menu_config.carrier_TruckType.browse"/>
             <item screen="carrier_Truck.browse" caption="mainMsg://menu_config.carrier_Truck.browse"/>
         </menu>
@@ -13,7 +13,7 @@
     <menu id="application-carrier" insertBefore="reference-books" caption="mainMsg://menu_config.application-carrier">
         <item screen="carrier_Carrier.browse" caption="mainMsg://menu_config.carrier_Carrier.browse"/>
         <item screen="carrier_HistoryCost.browse" caption="mainMsg://menu_config.carrier_HistoryCost.browse"/>
-        <item screen="carrier_Delivery.browse" caption="Delivery"/>
+        <item screen="carrier_Delivery.browse" caption="mainMsg://menu_config.carrier_Delivery.browse"/>
     </menu>
 
 </menu-config>

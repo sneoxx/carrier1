@@ -1,8 +1,5 @@
 package com.haulmont.carrier.web.screens.truck;
 
-import com.haulmont.carrier.entity.Carrier;
-import com.haulmont.carrier.service.CarrierService;
-import com.haulmont.carrier.service.TruckService;
 import com.haulmont.carrier.web.screens.delivery.DeliveryEdit;
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
@@ -21,7 +18,6 @@ public class TruckBrowse extends StandardLookup<Truck> {
 
     @Inject
     private CollectionLoader<Truck> trucksDl;
-
 
     @Subscribe
     private void onInit(InitEvent event) {

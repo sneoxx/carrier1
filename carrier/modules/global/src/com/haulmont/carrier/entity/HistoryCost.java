@@ -1,5 +1,6 @@
 package com.haulmont.carrier.entity;
 
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 @PublishEntityChangedEvents
 @Table(name = "CARRIER_HISTORY_COST")
 @Entity(name = "carrier_HistoryCost")
+@NamePattern("%s|changeDate")
 public class HistoryCost extends StandardEntity {
     private static final long serialVersionUID = -7897359436479864514L;
 

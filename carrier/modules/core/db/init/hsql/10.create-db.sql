@@ -98,7 +98,8 @@ create table CARRIER_DELIVERY (
     STATUS integer not null,
     DATE_ date not null,
     DISTANCE integer not null,
-    CARRIER_ID varchar(36),
+    CARRIER_ID varchar(36) not null,
+    EXT_USER_ID varchar(36),
     --
     primary key (ID)
 )^

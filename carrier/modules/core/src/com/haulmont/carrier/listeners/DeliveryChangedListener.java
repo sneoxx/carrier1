@@ -38,22 +38,6 @@ public class DeliveryChangedListener {
 //    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
 //    public void beforeCommit(EntityChangedEvent<Delivery, UUID> event) {
 //
-//        if (event.getType() == EntityChangedEvent.Type.UPDATED) {
-//            Delivery delivery = txDm.load(event.getEntityId()).one();
-//            log.info("Для новой доставки {} номер :",delivery.getNumber());
-////            long uniqueNumber = uniqueNumbers.getNextNumber("deliveryNumber");
-//            delivery.setNumber(delivery.getNumber());
-//            txDm.save(delivery);
-//        }
-//    }
-
-
-//    @Inject
-//    private TransactionalDataManager txDm;
-//
-//    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
-//    public void beforeCommit(EntityChangedEvent<Delivery, UUID> event) {
-//
 //        if (event.getType() == EntityChangedEvent.Type.CREATED) {
 //            Delivery delivery = txDm.load(event.getEntityId()).one();
 //            long uniqueNumber = uniqueNumbers.getNextNumber("deliveryNumber");

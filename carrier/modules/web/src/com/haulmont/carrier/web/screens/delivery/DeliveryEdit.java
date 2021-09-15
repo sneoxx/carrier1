@@ -54,12 +54,6 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
             BigDecimal costAllGoods = new BigDecimal("0.0");
             for (Goods goods : changes) {
                 costAllGoods = costAllGoods.add(goods.getCost());
-
-//            deliveryService.getCostOfDelivery(delivery);
-//            deliveryService.checkExpirationDate(delivery);
-//            deliveryService.getDeliveryInTheLast7Days(delivery);
-//                goodsService.convertNewDeliveriesStatusToCanceled(delivery.getCarrier().getName());
-//            goodsService.removeExpiredFoodStuffs();
             }
                  costOfAllGoods.setValue(costAllGoods);
         }
@@ -84,15 +78,13 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
                     .withCaption("Confirmation")
                     .withMessage("Do you want to be left without goods in delivery?")
                     .withActions(
-                            new DialogAction(DialogAction.Type.OK).withHandler(e -> {
-                                event.resume();
-                            }),
+                            new DialogAction(DialogAction.Type.OK).withHandler(e -> event.resume()),
                             new DialogAction(DialogAction.Type.CANCEL)
                     )
                     .show();
             event.preventCommit();
         } else {
-            List<FoodStuffs> foodProductsWithAnExpirationDateExceedingTheDeliveryDate = deliveryService.checkExpirationDate(getEditedEntity());
+                   List<FoodStuffs> foodProductsWithAnExpirationDateExceedingTheDeliveryDate = deliveryService.checkExpirationDate(getEditedEntity());
             if (foodProductsWithAnExpirationDateExceedingTheDeliveryDate.size() > 0) {
                 dialogs.createOptionDialog()
                         .withCaption("Confirmation")

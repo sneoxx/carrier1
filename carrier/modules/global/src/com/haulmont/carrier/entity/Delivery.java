@@ -1,5 +1,6 @@
 package com.haulmont.carrier.entity;
 
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.EmbeddedParameters;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
@@ -14,6 +15,7 @@ import java.util.List;
 @PublishEntityChangedEvents
 @Table(name = "CARRIER_DELIVERY")
 @Entity(name = "carrier_Delivery")
+@NamePattern("%s|number")
 public class Delivery extends StandardEntity {
     private static final long serialVersionUID = 1573604847669153165L;
 

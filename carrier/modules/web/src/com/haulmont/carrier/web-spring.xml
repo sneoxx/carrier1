@@ -13,7 +13,6 @@
             <map>
                 <entry key="carrier_DeliveryService" value="com.haulmont.carrier.service.DeliveryService"/>
                 <entry key="carrier_TruckService" value="com.haulmont.carrier.service.TruckService"/>
-                <entry key="carrier_CarrierService" value="com.haulmont.carrier.service.CarrierService"/>
                 <entry key="carrier_GoodsService" value="com.haulmont.carrier.service.GoodsService"/>
             </map>
         </property>
