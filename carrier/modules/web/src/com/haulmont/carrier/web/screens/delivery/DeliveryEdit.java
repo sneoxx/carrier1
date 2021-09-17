@@ -52,10 +52,12 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
             List<Goods> changes = getEditedEntity().getGoods();
             Delivery delivery = getEditedEntity();
             BigDecimal costAllGoods = new BigDecimal("0.0");
-            for (Goods goods : changes) {
-                costAllGoods = costAllGoods.add(goods.getCost());
+            if (CollectionUtils.isEmpty(changes)) {
+                for (Goods goods : changes) {
+                    costAllGoods = costAllGoods.add(goods.getCost());
+                }
+                costOfAllGoods.setValue(costAllGoods);
             }
-                 costOfAllGoods.setValue(costAllGoods);
         }
     }
 
@@ -119,10 +121,12 @@ public class DeliveryEdit extends StandardEditor<Delivery> {
         if ("goods".equals(changedProperty)) {
             List<Goods> changes = getEditedEntity().getGoods();
             BigDecimal costAllGoods = new BigDecimal("0.0");
-            for (Goods goods : changes) {
-                costAllGoods = costAllGoods.add(goods.getCost());
+            if (CollectionUtils.isEmpty(changes)) {
+                for (Goods goods : changes) {
+                    costAllGoods = costAllGoods.add(goods.getCost());
+                }
+                costOfAllGoods.setValue(costAllGoods);
             }
-            costOfAllGoods.setValue(costAllGoods);
         }
     }
 }

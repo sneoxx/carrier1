@@ -82,8 +82,6 @@ public class DeliveryServiceBean implements DeliveryService {
 //            Delivery delivery1 = (Delivery) query.getSingleResult();
 //            transaction.commit();
 
-
-
             List<FoodStuffs> foodStuffs  = new ArrayList<>();
             List<UUID> uuidList = new ArrayList<>();
             for (int i = 0; i < delivery.getGoods().size(); i++) {
@@ -142,7 +140,7 @@ public class DeliveryServiceBean implements DeliveryService {
                 );
         try (final Transaction transaction = persistence.createTransaction()) {
             final EntityManager entityManager = persistence.getEntityManager();
-            final Query query = entityManager.createQuery("select d from carrier_Delivery d where @between(d.date, now, now+1, day) and d.carrier = :carrierId");
+            final Query query = entityManager.createQuery("select d from carrier_Delivery d where @between(d.date, now-7, now, day) and d.carrier = :carrierId");
             query.setParameter("carrierId", carrier);
             query.setView(viewWight1);
             List<Delivery> deliveryList = query.getResultList();
